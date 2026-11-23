@@ -48,6 +48,8 @@ make channels      # busca novos vídeos dos canais
 
 ## 5. OpenSource Forge — Vitrine Skip (2026-11-23)
 
+- **Repo próprio (descentralizado em 2026-11-23):** [github.com/senal88/opensources](https://github.com/senal88/opensources) — app React/Vite "OpenSource Forge"; era o bloco `skip/` deste repositório. O que segue fica como referência histórica.
+
 - [docs/opensource_forge_layout_benchmark.md](./docs/opensource_forge_layout_benchmark.md) — pesquisa de layouts, modelos free/paid e padrões de UX
 - [docs/opensource_forge_skip_blueprint.md](./docs/opensource_forge_skip_blueprint.md) — arquitetura, entidades, fluxos e critérios de aceitação
 - [skip/opensource_forge_catalog.json](./skip/opensource_forge_catalog.json) — 31 repositórios verificados no GitHub com fontes rastreáveis

@@ -96,6 +96,8 @@ rclone lsf gdrive: --drive-root-folder-id 1K3J6eAGj31teyfiS00Hd8gT5w5SQkx_I
 
 ## 7. OpenSource Forge — Vitrine de Projetos (2026-11-23)
 
+- **Descentralizado (2026-11-23):** o app "OpenSource Forge" (React/Vite) agora vive em repo próprio — [github.com/senal88/opensources](https://github.com/senal88/opensources). O que segue é o histórico de quando era o bloco `skip/` deste repositório.
+
 - **Escopo:** pesquisa de layouts pagos/gratuitos; curadoria de 31 repositórios GitHub verificados por conector; referência visual de 6 screenshots de terceiros sem redistribuição.
 - **Dados:** `skip/opensource_forge_catalog.json`; **metodologia:** `docs/opensource_forge_layout_benchmark.md`; **especificação:** `docs/opensource_forge_skip_blueprint.md`.
 - **Skip:** projeto `81445`, versão `0.0.3`; prévia em `https://opensource-forge-catalogo-implantacao-db9db--preview.goskip.app`.

@@ -1,0 +1,66 @@
+{
+  "collected_at": "2026-11-23",
+  "note": "Links apenas para referência; direitos de reprodução não confirmados",
+  "assets": [
+    {
+      "platform": "OpenAlternative",
+      "image_url": "https://ph-files.imgix.net/06431c43-01ac-45e5-b8df-08372d5b1df4.png?auto=format&fit=crop",
+      "source_page": "https://www.producthunt.com/products/openalternative",
+      "design_pattern": "Cards com comparações de SaaS e métricas",
+      "usage": "referencia_visual_apenas",
+      "downloaded": false,
+      "license": "nao_verificada",
+      "collected_at": "2026-11-23"
+    },
+    {
+      "platform": "Railway",
+      "image_url": "https://res.cloudinary.com/railway/image/upload/v1695749914/blog/launch-week-1-databases/marketplace_fzi3im.png",
+      "source_page": "https://blog.railway.com/p/launch-01-next-gen-databases",
+      "design_pattern": "Template marketplace e ação Deploy",
+      "usage": "referencia_visual_apenas",
+      "downloaded": false,
+      "license": "nao_verificada",
+      "collected_at": "2026-11-23"
+    },
+    {
+      "platform": "Coolify",
+      "image_url": "https://pythonbynight.com/img/posts/place_for_things/coolify_services.png",
+      "source_page": "https://pythonbynight.com/blog/a-place-for-my-things",
+      "design_pattern": "Lista de serviços e ficha de instalação",
+      "usage": "referencia_visual_apenas",
+      "downloaded": false,
+      "license": "nao_verificada",
+      "collected_at": "2026-11-23"
+    },
+    {
+      "platform": "Coolify",
+      "image_url": "https://rasmusgodske.com/assets/img/securely-expose-your-coolify-apps-with-the-magic-of-cloudflare-tunnels/new-resource-page.png",
+      "source_page": "https://rasmusgodske.com/posts/securely-expose-your-coolify-apps-with-the-magic-of-cloudflare-tunnels/",
+      "design_pattern": "Seleção de implantação Git/Docker/Compose",
+      "usage": "referencia_visual_apenas",
+      "downloaded": false,
+      "license": "nao_verificada",
+      "collected_at": "2026-11-23"
+    },
+    {
+      "platform": "n8n",
+      "image_url": "https://cdn.outrank.so/4f0bd360-0bc4-406d-a004-83701b154ee1/screenshots/5b7b475d-cbe8-4beb-8702-5a9d8920ffe1.jpg",
+      "source_page": "https://n8n.io/workflows/",
+      "design_pattern": "Busca por jobs-to-be-done, categorias, integrações",
+      "usage": "referencia_visual_apenas",
+      "downloaded": false,
+      "license": "nao_verificada",
+      "collected_at": "2026-11-23"
+    },
+    {
+      "platform": "OpenAlternative",
+      "image_url": "https://d4.alternativeto.net/1J-Xra-2IhFxvpO_14pNfthZlPFjddAI1IqcBKMrVfU/rs%3Afit%3A2400%3A2400%3A0/g%3Ace%3A0%3A0/YWJzOi8vZGlzdC9zL29wZW5hbHRlcm5hdGl2ZV82MDM3NTJfZnVsbC5wbmc.jpg",
+      "source_page": "https://alternativeto.net/software/openalternative/about/",
+      "design_pattern": "Vitrine dark com filtros e dados GitHub",
+      "usage": "referencia_visual_apenas",
+      "downloaded": false,
+      "license": "nao_verificada",
+      "collected_at": "2026-11-23"
+    }
+  ]
+}

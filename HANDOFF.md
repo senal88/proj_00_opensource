@@ -93,3 +93,13 @@ rclone lsf gdrive: --drive-root-folder-id 1K3J6eAGj31teyfiS00Hd8gT5w5SQkx_I
 - Toda entrada nova (`_intake/` ou `triagem/`) precisa de decisão: promover com nome
   da taxonomia **e** linha no `INDEX.md`, ou descartar. E marcar em `.triaged` se veio do Drive.
 - WIP não commitado: conferir `git status` antes de mexer.
+
+## 7. OpenSource Forge — Vitrine de Projetos (2026-11-23)
+
+- **Escopo:** pesquisa de layouts pagos/gratuitos; curadoria de 31 repositórios GitHub verificados por conector; referência visual de 6 screenshots de terceiros sem redistribuição.
+- **Dados:** `skip/opensource_forge_catalog.json`; **metodologia:** `docs/opensource_forge_layout_benchmark.md`; **especificação:** `docs/opensource_forge_skip_blueprint.md`.
+- **Skip:** projeto `81445`, versão `0.0.3`; prévia em `https://opensource-forge-catalogo-implantacao-db9db--preview.goskip.app`.
+- **Funciona:** busca, filtros, detalhes, shortlist, captura local com validação de duplicados, exportação JSON, seleção DEV/GitHub/Coolify, plano de execução dry-run.
+- **Não implementado:** persistência Supabase, workflows n8n, enrichment contínuo, validação de licenças, inspeção de Compose/infra e execução de clone/deploy.
+- **Limite:** a segunda execução de QA Skip compilou, mas o estágio de análise estática retornou `fetch failed` por erro de rede; a primeira execução da aplicação passou integralmente. A suíte de testes não foi executada pelo Skip.
+- **Governança:** não publicar em produção nem provisionar VPS sem validação específica. O catálogo continua no Git dev como fonte mestre; screenshots externos só como referências de estudo.

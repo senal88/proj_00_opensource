@@ -45,3 +45,13 @@ make sync-dry-run  # simula dev -> Drive
 make sync          # espelha dev -> Drive (não apaga no destino)
 make channels      # busca novos vídeos dos canais
 ```
+
+## 5. OpenSource Forge — Vitrine Skip (2026-11-23)
+
+- [docs/opensource_forge_layout_benchmark.md](./docs/opensource_forge_layout_benchmark.md) — pesquisa de layouts, modelos free/paid e padrões de UX
+- [docs/opensource_forge_skip_blueprint.md](./docs/opensource_forge_skip_blueprint.md) — arquitetura, entidades, fluxos e critérios de aceitação
+- [skip/opensource_forge_catalog.json](./skip/opensource_forge_catalog.json) — 31 repositórios verificados no GitHub com fontes rastreáveis
+- [skip/opensource_forge_image_references.json](./skip/opensource_forge_image_references.json) — manifesto de referências visuais externas
+- [skip/opensource_forge_preview.png](./skip/opensource_forge_preview.png) e [skip/opensource_forge_preview_mobile.png](./skip/opensource_forge_preview_mobile.png) — screenshots originais da prévia Skip
+- [Prévia Skip](https://opensource-forge-catalogo-implantacao-db9db--preview.goskip.app) — projeto 81445, catálogo e planejamento sem deploy
+- [docs/opensource_forge_agent_prompt.md](./docs/opensource_forge_agent_prompt.md) — prompt operacional para auditoria, ingestão e integração por agentes CLI

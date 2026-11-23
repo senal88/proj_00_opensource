@@ -1,0 +1,10 @@
+# Formato: <dominio> <youtube_url>
+saas_alternativas https://www.youtube.com/watch?v=vjqJmMIsiR0
+saas_alternativas https://www.youtube.com/watch?v=bEIJUykSNIs
+saas_alternativas https://www.youtube.com/watch?v=oV81MNcBfMY
+claude_code https://www.youtube.com/watch?v=lnNtwW7R00c
+claude_code https://www.youtube.com/watch?v=Zuj6whVyjNE
+ia_produtividade https://www.youtube.com/watch?v=_2gC1JBc3XI
+ia_produtividade https://www.youtube.com/watch?v=ZectQ2wUhUQ
+ia_radar https://www.youtube.com/watch?v=e0fD5WLCnbU
+marketing_trafego https://www.youtube.com/watch?v=Hi-4c7HDS4M

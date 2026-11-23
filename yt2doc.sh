@@ -21,6 +21,9 @@ fi
 if [[ -z "${LLM_OPENROUTER_KEY:-}" && -n "${OPENROUTER_API_KEY:-}" ]]; then
   export LLM_OPENROUTER_KEY="${OPENROUTER_API_KEY}"
 fi
+if [[ -z "${LLM_DEEPSEEK_KEY:-}" && -n "${DEEPSEEK_API_KEY:-}" ]]; then
+  export LLM_DEEPSEEK_KEY="${DEEPSEEK_API_KEY}"
+fi
 
 usage() {
   cat <<EOF

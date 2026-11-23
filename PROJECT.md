@@ -62,7 +62,17 @@
 | `PROJ_00_OPENSOURCE_GDRIVE_REMOTE_PATH` | Sim | `~/.env.global` (`gdrive:PROJECTS/proj_00_opensource`) |
 | `PROJ_00_OPENSOURCE_GDRIVE_FOLDER_ID` | Sim | `~/.env.global` |
 | `GEMINI_API_KEY` | Sim | `~/.env.global` (mapeada para `LLM_GEMINI_KEY` em `yt2doc.sh`) |
+| `DEEPSEEK_API_KEY` | Opcional | `~/.env.global` (mapeada para `LLM_DEEPSEEK_KEY` em `yt2doc.sh`) |
+| `OPENCODE_API_KEY` | Opcional | `~/.env.global` (orquestração/agentes OpenCode) |
 | `N8N_API_BASE_URL` | Opcional | `~/.env.global` (`https://n8n.senamfo.com.br/api/v1`) |
+
+### Referências Plataforma Adapta / Skip
+- **Maestro:** `https://maestro.adapta.one/`
+- **Adapta Agent (Projeto):** `https://agent.adapta.one/chat?projectId=01a2064f-2a9a-7703-97a3-1cbbcbf32c98`
+- **Adapta Agent (Chat):** `https://agent.adapta.one/chat/01a20648-716d-779c-85cf-255873b37458`
+- **Skip Workspace:** `https://goskip.dev/luizfernandomoreirasena-6f51d/workspace/projects`
+- **Artefatos Skip no repositório:** `skip/radar_osre.html` e `skip/radar_osre_completo_raw.txt`
+- **Raw consolidado no repositório:** `raw/opensource_raw.md`
 
 ---
 

@@ -24,6 +24,10 @@
 | `ia_radar` | `e0fD5WLCnbU` | https://www.youtube.com/watch?v=e0fD5WLCnbU | Pendente batch |
 | `marketing_trafego` | `Hi-4c7HDS4M` | https://www.youtube.com/watch?v=Hi-4c7HDS4M | Pendente batch |
 
-## 3. Auditoria e Automação
+## 3. Auditoria, Raw, Skip e Automação
 - [PROJECT.md](./PROJECT.md) — Documento mestre do repositório
 - [docs/audit_opensource_raw_and_n8n_blueprint.md](./docs/audit_opensource_raw_and_n8n_blueprint.md) — Auditoria de `opensource_raw.md`, próximos passos e arquitetura de buscas similares no `https://n8n.senamfo.com.br`
+- [raw/opensource_raw.md](./raw/opensource_raw.md) — Export bruto de referência histórica
+- [skip/radar_osre.html](./skip/radar_osre.html) — Cockpit Skip autocontido (**Radar OS/RE**)
+- [skip/radar_osre_completo_raw.txt](./skip/radar_osre_completo_raw.txt) — Briefing e especificação completa do app Skip
+- [channels.txt](./channels.txt) e [scripts/check_channels.sh](./scripts/check_channels.sh) — Monitoramento de novos vídeos por canal

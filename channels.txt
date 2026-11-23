@@ -1,0 +1,7 @@
+# Formato: <dominio> <youtube_channel_videos_url>
+saas_alternativas https://www.youtube.com/@novaonda2025/videos
+claude_code https://www.youtube.com/@andre_lug/videos
+saas_alternativas https://www.youtube.com/@AwesomeOpenSource/videos
+engenharia_reversa https://www.youtube.com/@LiveOverflow/videos
+engenharia_reversa https://www.youtube.com/@LaurieWired/videos
+engenharia_reversa https://www.youtube.com/@mentebinaria/videos

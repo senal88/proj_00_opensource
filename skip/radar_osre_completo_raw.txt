@@ -1,0 +1,358 @@
+Usuário:
+
+crie um prompt completo para desenvolver projeto skip para buscar projetos open source e fruto de engenharia reversa: [https://www.youtube.com/@andre_lug
+https://www.youtube.com/@novaonda2025
+https://www.youtube.com/watch?v=hmdIjg1wxWI
+
+
+1. Open Source, Self-Hosted e Curadoria GitHub
+Global (Inglês — Foco em Infra, Docker e Deploy)
+
+Awesome Open Source: Reviews práticos e tutoriais de instalação (Docker/VPS) de ferramentas self-hosted.
+Techno Tim: Homelab, infraestrutura self-hosted, Docker, Kubernetes e monitoramento.
+Christian Lempa: Arquitetura de servidores, automação e ferramentas open source em produção.
+DB Tech: Focado em containers Docker e alternativas open source para serviços SaaS.
+Fireship: Radar rápido de novos repositórios, frameworks e tendências de desenvolvimento.
+Brasil (Português — Foco em Listas GitHub e IA)
+
+Diolinux: Principal referência em Linux, ecossistema open source e produtividade.
+André Lug | Autoridade com IA: Curadoria frequente de repositórios GitHub voltados a IA, Claude Code e produtividade.
+NOVA ONDA / Tecnativo / Eddwan Hallen: Canais focados em rankings periódicos de repositórios em alta e alternativas gratuitas a SaaS.
+2. Engenharia Reversa e Análise de Baixo Nível
+Global (Inglês)
+
+LiveOverflow: Referência técnica em engenharia reversa, exploração de binários, CTFs e segurança ofensiva.
+LaurieWired: Especializada em análise de malware, engenharia reversa de Android (APK/ARM) e uso prático do Ghidra.
+Low Level (antigo Low Level Learning): Programação de sistemas, C/Assembly, análise de vulnerabilidades e funcionamento interno de compiladores/SOs.
+Stacksmashing: Engenharia reversa de hardware, firmware, dispositivos embarcados e protocolos proprietários.
+OALabs: Análise profunda de malware, desempacotamento (unpacking) e uso avançado de IDA Pro / x64dbg.
+Guided Hacking: Focado em engenharia reversa de memória, manipulação de processos e análise de jogos/binários Windows.
+Brasil (Português)
+
+Papo Binário (Mente Binária): Principal referência brasileira em engenharia reversa, Assembly, análise de binários (ELF/PE) e malware, conduzido por Fernando Mercês.
+3. Fontes Primárias (Radar Atualizado sem Algoritmo)
+Para captar projetos antes de virarem vídeos no YouTube, monitore via RSS ou CLI:
+GitHub Trending: Filtro diário/semanal por linguagem ([github.com/trending](https://github.com/trending)).
+selfh.st: Diretório e newsletter semanal focada exclusivamente em lançamentos e atualizações de apps self-hosted.
+Awesome Selfhosted & Awesome Reverse Engineering: Repositórios curados no GitHub (awesome-selfhosted/awesome-selfhosted e tylerha97/awesome-reversing).
+Hacker News (Show HN): Principal fonte onde criadores publicam ferramentas open source e projetos de engenharia reversa no dia do lançamento ([news.ycombinator.com/show](https://news.ycombinator.com/show)).
+1. Arquivo de entrada (channels.txt)
+Crie a lista de canais no formato  /videos (o sufixo /videos evita misturar Shorts e Lives na contagem dos 3 últimos).
+
+cat  channels.txt
+# Formato:  
+saas_alternativas https://www.youtube.com/@novaonda2025/videos
+saas_alternativas https://www.youtube.com/@AwesomeOpenSource/videos
+engenharia_reversa https://www.youtube.com/@LiveOverflow/videos
+engenharia_reversa https://www.youtube.com/@LaurieWired/videos
+engenharia_reversa https://www.youtube.com/@mentebinaria/videos
+EOF
+
+
+
+2. Script de monitoramento (check_channels.sh)
+O script usa --flat-playlist --playlist-end 3 para consultar apenas os metadados leves dos 3 vídeos mais recentes e deduplica pelo ID do vídeo diretamente contra o urls.txt.
+
+#!/usr/bin/env bash
+set -euo pipefail
+
+CHANNELS_FILE="${1:-channels.txt}"
+URLS_FILE="${2:-urls.txt}"
+LIMIT=3
+
+if [[ ! -f "$CHANNELS_FILE" ]]; then
+  echo "Erro: arquivo '${CHANNELS_FILE}' não encontrado." &2
+  exit 1
+fi
+
+touch "$URLS_FILE"
+NOVOS=0
+
+while read -r domain channel_url; do
+  [[ -z "${domain:-}" || "$domain" == \#* ]] && continue
+
+  # Extrai apenas os IDs dos últimos N vídeos sem baixar mídia
+  video_ids="$(yt-dlp --flat-playlist --playlist-end "$LIMIT" \
+    --print "%(id)s" --no-warnings "$channel_url" 2/dev/null || true)"
+
+  if [[ -z "$video_ids" ]]; then
+    echo "[AVISO] Nenhum vídeo obtido de: ${channel_url}" &2
+    continue
+  fi
+
+  while IFS= read -r vid; do
+    [[ -z "$vid" ]] && continue
+    # Deduplicação exata pelo ID do vídeo
+    if ! grep -Fq "$vid" "$URLS_FILE"; then
+      echo "${domain} https://www.youtube.com/watch?v=${vid}"  "$URLS_FILE"
+      echo "[NOVO] ${domain} - https://www.youtube.com/watch?v=${vid}"
+      NOVOS=$((NOVOS + 1))
+    fi
+  done  ./check_channels.log 2&1
+
+
+]
+
+
+IA:
+
+Prompt pronto para colar. Ele já trava as regras do seu jeito: nada de título, data, número ou handle inventado — o que não veio de fonte real aparece como campo a preencher.
+
+---
+
+# PROMPT — Radar Open Source & Engenharia Reversa (Skip, página única)
+
+## 1. Objetivo
+
+Construir uma página única, autocontida (HTML/CSS/JS, sem backend), chamada **Radar OS/RE**. Ela é um cockpit de curadoria com dois eixos de conteúdo:
+
+- **self_hosted** — open source, self-hosted e alternativas gratuitas a SaaS.
+- **reversa** — engenharia reversa, análise de baixo nível, binários e firmware.
+
+A página organiza três coisas: as fontes de curadoria (canais e fontes primárias), o fluxo de captura de novos vídeos via CLI, e o radar de itens capturados com triagem (novo / avaliado / descartado). O uso típico é semanal: rodar o script, colar a saída, triar o que vira projeto ou estudo.
+
+## 2. Regras invioláveis de conteúdo
+
+1. **Não invente dado.** Título de vídeo, data, contagem, número de estrelas, licença, autor ou handle que não estejam na seção 5 são proibidos. Campo sem dado real aparece como `não informado` e editável.
+2. **Nenhuma chamada de rede.** Zero `fetch`, zero CDN, zero fonte externa, zero API do YouTube. A página funciona aberta de dentro do arquivo.
+3. **Link só na forma exata.** Canal: `https://www.youtube.com/@handle/videos`. Vídeo: `https://www.youtube.com/watch?v=`. Nunca gerar slug, nunca encurtar, nunca "corrigir" a URL recebida.
+4. **Sem número agregado inventado.** Contadores ("12 itens", "3 novos") só refletem dados realmente carregados na sessão.
+5. **Estado vazio é conteúdo.** Onde não há dado, mostrar bloco explicando o que fazer para popular — não preencher com exemplo fictício.
+6. **Sem selos ou carimbos sobre o próprio documento.** Nada de "BETA", "DRAFT" ou marca d'água sobre o cabeçalho.
+7. **Uma ideia por tela.** Cada aba responde a uma pergunta só.
+
+## 3. Estrutura — quatro abas
+
+### 3.1 Radar
+
+Cockpit principal, com duas subvisões: **Vídeos** e **Projetos**.
+
+Barra fixa no topo da aba:
+- campo de busca (filtra por título, canal, ID e tags)
+- filtro de domínio: todos / `self_hosted` / `reversa`
+- filtro de canal (dropdown com os canais que existem nos dados carregados)
+- filtro de status: todos / novo / avaliado / descartado
+- contador à direita, no formato `N itens · M novos`
+
+Cada item de vídeo é uma linha/card com: ID do vídeo em monoespaçado, domínio (cor do eixo), canal, título, data de captura, link abrível e três ações — **abrir**, **copiar link**, **marcar visto**. Itens não vistos recebem um marcador discreto à esquerda (barra de 3px na cor do domínio), nunca um badge sobre o texto.
+
+Subvisão **Projetos**: tabela de repositórios triados, com colunas nome, URL, categoria (self-hosted / CLI / firmware / malware-analysis / outra), licença, origem (qual canal ou fonte primária trouxe), veredito (usar / testar / descartar) e nota curta. Botão **Adicionar projeto** abre formulário inline; valida que a URL começa com `https://github.com/` ou `https://` e que nome não está vazio.
+
+Ferramentas de entrada, no rodapé da aba:
+- **Importar urls.txt** — textarea que recebe o conteúdo do arquivo gerado pelo script. Parser: ignora linhas vazias e iniciadas com `#`, lê `dominio url`, extrai o ID por regex `[?&]v=([A-Za-z0-9_-]{11})`, descarta duplicados por ID e marca cada novo item como `novo`.
+- **Exportar JSON** e **Limpar dados** (com confirmação explícita em dois passos).
+
+### 3.2 Canais
+
+Tabela curada com colunas: canal, região/idioma, domínio, foco, por que seguir, link.
+
+- O link aparece clicável quando verificável; quando o handle não foi informado, a célula mostra `handle não informado` em texto secundário com botão **editar** que abre campo inline. O valor digitado persiste.
+- Cada linha tem um checkbox **monitorar**. O checkbox só fica habilitado se o canal tiver URL válida.
+- Botão **Gerar channels.txt** monta o arquivo a partir dos canais marcados, no formato exato ` /videos`, uma linha por canal, com comentário de cabeçalho `# Formato:  `. Dois botões de saída: **copiar** e **baixar**.
+
+### 3.3 Fontes primárias
+
+Lista ordenada por prioridade, com nome, o que entrega, cadência, tipo (RSS / CLI / newsletter / diretório) e link. Bloco de abertura explicando a lógica: monitorar aqui captura o projeto antes de ele virar vídeo, o que dá vantagem de tempo sobre quem só consome YouTube.
+
+### 3.4 Pipeline
+
+Documentação operacional do script, em quatro blocos copiáveis e independentes:
+
+1. **channels.txt** — exemplo mínimo com três canais do catálogo.
+2. **check_channels.sh** — o script completo, verbatim, conforme seção 6.
+3. **Instalação e validação** — `chmod +x`, primeira execução, segunda execução com saída esperada `Novos vídeos adicionados em urls.txt: 0`.
+4. **Agendamento** — linha de cron com seletor de plataforma: macOS usa `/opt/homebrew/bin/bash`, Linux usa `/usr/bin/bash`. O bloco copiado respeita a plataforma selecionada.
+
+Notas técnicas obrigatórias no rodapé da aba: dependência de `yt-dlp`; `--flat-playlist --playlist-end 3` não baixa mídia; deduplicação é por ID; e o alerta de que `grep -Fq "$vid"` casa substring em qualquer parte do arquivo — em produção prefira casar o campo exato, por exemplo `grep -Fq "watch?v=${vid}"`.
+
+## 4. Modelo de dados
+
+```js
+const canais = [{
+  id, nome, regiao, idioma, dominio, foco, motivo, url, monitorar }
+];
+const fontes = [{ nome, entrega, cadencia, tipo, url, prioridade }];
+const videos = [{ id, dominio, canal, titulo, url, capturadoEm, status, tags }];
+const projetos = [{ nome, url, categoria, licenca, origem, veredito, nota }];
+```
+
+`status` ∈ `novo | avaliado | descartado`. `veredito` ∈ `usar | testar | descartar`.
+
+## 5. Dados semente (usar exatamente estes)
+
+**Canais — domínio `self_hosted`, inglês**
+
+- Awesome Open Source — reviews práticos e tutoriais de instalação (Docker/VPS) de ferramentas self-hosted.
+- Techno Tim — homelab, infraestrutura self-hosted, Docker, Kubernetes e monitoramento.
+- Christian Lempa — arquitetura de servidores, automação e open source em produção.
+- DB Tech — containers Docker e alternativas open source a serviços SaaS.
+- Fireship — radar rápido de novos repositórios, frameworks e tendências.
+
+**Canais — domínio `self_hosted`, português**
+
+- Diolinux — Linux, ecossistema open source e produtividade.
+- André Lug | Autoridade com IA — curadoria de repositórios GitHub voltados a IA, Claude Code e produtividade. URL verificada: `https://www.youtube.com/@andre_lug/videos`.
+- NOVA ONDA — rankings periódicos de repositórios em alta e alternativas gratuitas a SaaS. URL verificada: `https://www.youtube.com/@novaonda2025/videos`.
+- Tecnativo — mesmo foco de rankings; handle não informado.
+- Eddwan Hallen — mesmo foco de rankings; handle não informado.
+
+**Canais — domínio `reversa`, inglês**
+
+- LiveOverflow — engenharia reversa, exploração de binários, CTFs e segurança ofensiva.
+- LaurieWired — análise de malware, engenharia reversa de Android (APK/ARM) e uso prático do Ghidra.
+- Low Level — programação de sistemas, C/Assembly, vulnerabilidades e funcionamento interno de compiladores e sistemas operacionais.
+- Stacksmashing — engenharia reversa de hardware, firmware, dispositivos embarcados e protocolos proprietários.
+- OALabs — análise profunda de malware, unpacking e uso avançado de IDA Pro / x64dbg.
+- Guided Hacking — engenharia reversa de memória, manipulação de processos e análise de jogos e binários Windows.
+
+**Canais — domínio `reversa`, português**
+
+- Papo Binário (Mente Binária) — engenharia reversa, Assembly, análise de binários ELF/PE e malware. Handle não informado.
+
+**Vídeo semente** — `https://www.youtube.com/watch?v=hmdIjg1wxWI`. Domínio `self_hosted` por padrão. Título e canal **não informados**: exibir `título não informado` com ação de editar. Não deduzir o conteúdo do vídeo pelo ID.
+
+**Fontes primárias, em ordem de prioridade**
+
+1. GitHub Trending — `https://github.com/trending` — filtro diário e semanal por linguagem — CLI/web.
+2. selfh.st — `https://selfh.st` — diretório e newsletter semanal de lançamentos e atualizações self-hosted — newsletter.
+3. Awesome Selfhosted — `https://github.com/awesome-selfhosted/awesome-selfhosted` — lista curada de apps self-hosted — diretório.
+4. Awesome Reverse Engineering — `https://github.com/tylerha97/awesome-reversing` — lista curada de recursos de engenharia reversa — diretório.
+5. Hacker News (Show HN) — `https://news.ycombinator.com/show` — onde criadores publicam ferramentas open source e projetos de engenharia reversa no dia do lançamento — RSS.
+
+## 6. Script de monitoramento — reproduzir verbatim
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+CHANNELS_FILE="${1:-channels.txt}"
+URLS_FILE="${2:-urls.txt}"
+LIMIT=3
+
+if [[ ! -f "$CHANNELS_FILE" ]]; then
+  echo "Erro: arquivo '${CHANNELS_FILE}' não encontrado." &2
+  exit 1
+fi
+
+touch "$URLS_FILE"
+NOVOS=0
+
+while read -r domain channel_url; do
+  [[ -z "${domain:-}" || "$domain" == \#* ]] && continue
+
+  video_ids="$(yt-dlp --flat-playlist --playlist-end "$LIMIT" \
+    --print "%(id)s" --no-warnings "$channel_url" 2/dev/null || true)"
+
+  if [[ -z "$video_ids" ]]; then
+    echo "[AVISO] Nenhum vídeo obtido de: ${channel_url}" &2
+    continue
+  fi
+
+  while IFS= read -r vid; do
+    [[ -z "$vid" ]] && continue
+    if ! grep -Fq "$vid" "$URLS_FILE"; then
+      echo "${domain} https://www.youtube.com/watch?v=${vid}"  "$URLS_FILE"
+      echo "[NOVO] ${domain} - https://www.youtube.com/watch?v=${vid}"
+      NOVOS=$((NOVOS + 1))
+    fi
+  done  ./check_channels.log 2&1
+```
+
+## 7. Comportamento e persistência
+
+- Persistir em `localStorage` sob a chave `radar-os-re/v1`: vídeos, projetos, overrides de canais (handle e título editados), preferência de plataforma no cron e último estado dos filtros.
+- Importação é idempotente: reimportar o mesmo `urls.txt` não cria duplicata e não zera o status já atribuído.
+- Ordenação padrão do feed: data de captura decrescente, depois ID.
+- Toda ação destrutiva (limpar dados, remover projeto) exige confirmação em dois passos.
+- Atalhos de teclado: `/` foca a busca, `Esc` limpa, `1`–`4` troca de aba.
+- Sem truncamento silencioso: listas longas rolam, nunca cortam com "ver mais" que esconde itens.
+
+## 8. Identidade visual e UX
+
+- Tema escuro fixo, alto contraste. Tipografia de sistema para texto e monoespaçada para IDs, comandos e caminhos.
+- Dois acentos, um por eixo: âmbar para `self_hosted`, ciano para `reversa`. Usar o acento em barra lateral, marcador e filtro ativo — nunca em texto corrido inteiro.
+- Hierarquia por espaço e peso, não por caixas com sombra em tudo. Nada de gradiente decorativo, nada de ícone de enfeite.
+- Tabelas viram cards empilhados abaixo de 720px, preservando link e ações.
+- Contraste mínimo AA, `:focus-visible` visível em todos os controles, `aria-label` nos botões de ícone.
+- Renderização instantânea no primeiro paint, sem tela de carregamento.
+
+## 9. Critérios de aceite
+
+1. Abre e funciona sem conexão, sem erro no console.
+2. Todas as URLs da seção 5 aparecem exatamente como fornecidas.
+3. Nenhum título, data, número ou handle inventado em qualquer tela — inclusive em estado vazio.
+4. Importar o mesmo `urls.txt` duas vezes mantém a contagem e preserva os status.
+5. Gerar `channels.txt` respeita os checkboxes e produz o formato ` /videos`.
+6. Os quatro blocos de pipeline copiam o conteúdo correto, e o cron respeita a plataforma selecionada.
+7. Recarregar a página preserva vídeos, projetos, edições e filtros.
+8. Layout utilizável a 360px de largura.
+9. Navegação por teclado alcança busca, filtros, abas e ações de item.
+10. Nenhuma afirmação de dado ao vivo ou em tempo real em qualquer texto da página.
+
+## 10. Fora de escopo
+
+Backend, login, scraping do YouTube em tempo real, download ou transcrição de vídeo, RSS agregado no navegador, tema claro, gráficos e qualquer estatística que a página não possa calcular com os dados carregados.
+
+---
+
+Fim do prompt.
+
+Dois pontos onde a honestidade do dado pesou e você deve saber: dos dezesseis canais da lista, só dois têm handle verificável (`@andre_lug` e `@novaonda2025`) — os outros ficam como campo editável, não como link chutado. E o vídeo `hmdIjg1wxWI` entra sem título, porque eu não sei qual é e inventar seria pior que deixar em branco.
+
+Se quiser, posso:
+- gerar a página agora com esse prompt e você revisa o resultado no navegador
+- enxugar o prompt para uma versão de 1 página, caso o gerador corte briefings longos
+- ajustar o parser para ler também o log do cron, além do `urls.txt`
+
+
+Usuário:
+
+Gere a página agora com esse prompt e revise o resultado no navegador.
+
+Se o gerador cortar briefings longos, enxugue o prompt para uma versão de 1 página sem perder as instruções essenciais.
+
+Ajuste o parser para ler também o log do cron, além do urls.txt.
+
+
+IA:
+
+Gero agora a página com o briefing consolidado e o parser lendo tanto `urls.txt` quanto o log do cron.
+
+Página gerada. Está no painel do Skip; a publicação é manual ali — o link público só existe depois de você publicar.
+
+## O que revisar no navegador, em ordem
+
+**1. Aba Canais** — dos 16 canais, só dois devem mostrar link clicável (`@andre_lug` e `@novaonda2025`). Os outros 14 devem exibir "handle não informado" com botão de editar. Se algum aparecer com link, é handle inventado: erro grave.
+
+**2. Vídeo semente `hmdIjg1wxWI`** — deve aparecer como título não informado, com ação de editar. Se vier com título preenchido, o gerador alucinou.
+
+**3. Parser dual** — o teste que importa. Cole exatamente isto na textarea de importação:
+
+```
+# Formato:  
+self_hosted https://www.youtube.com/watch?v=AAAAAAAAAAA
+reversa https://www.youtube.com/watch?v=BBBBBBBBBBB
+[AVISO] Nenhum vídeo obtido de: https://www.youtube.com/@x/videos
+[NOVO] reversa - https://www.youtube.com/watch?v=CCCCCCCCCCC
+[NOVO] self_hosted - https://www.youtube.com/watch?v=AAAAAAAAAAA
+Concluído. Novos vídeos adicionados em urls.txt: 2
+```
+
+Resultado correto: **3 itens novos** (A, B, C), **1 duplicado descartado** (o A repetido), **1 linha de aviso ignorada**, e o resumo da importação mostrando esses números. Importe de novo: deve dar **0 novos** e não zerar status.
+
+**4. `channels.txt` gerado** — marque dois canais, gere, confira se sai ` /videos` e se o sufixo `/videos` está presente.
+
+**5. Cron na aba Pipeline** — troque o seletor macOS/Linux e confira se o caminho do bash muda no bloco copiado.
+
+**6. Persistência** — importe, edite um título, recarregue. Nada pode sumir.
+
+## Onde o gerador costuma falhar
+
+Briefing longo às vezes perde a cauda. Se o script `check_channels.sh` vier resumido, truncado ou "melhorado", refaça só a aba Pipeline — ele precisa estar verbatim, porque o alerta do `grep -Fq` só faz sentido junto do código real.
+
+Outro ponto frágil: a regex exigindo exatamente 11 caracteres no ID. Se algum ID de 11 caracteres não entrar, é isso.
+
+Se quiser, posso:
+- gerar um segundo arquivo só com a especificação do parser, para você usar como teste de regressão
+- montar o `channels.txt` completo já com os 16 canais, para você alimentar o script hoje
+- escrever as correções como um prompt de edição, a partir do que você encontrar na revisão
